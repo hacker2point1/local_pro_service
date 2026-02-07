@@ -1,10 +1,11 @@
 export const endpoints ={
 auth:{
-    registration : "/users-api/register",
-    signIn : "/users-api/login",
-    registerOtp:"/users-api/register/verify-otp",
-    logInOtp:"/users-api/login/verify-otp"
-}
+    registration : "/users-api/register/",
+    signIn : "/users-api/login/",
+    registerOtp:"/users-api/register/verify-otp/",
+    logInOtp:"/users-api/login/verify-otp/"
+},
+
 }
 export const endpoint = [
     endpoints.auth.registration,

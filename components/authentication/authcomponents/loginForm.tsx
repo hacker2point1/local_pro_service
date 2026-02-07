@@ -3,14 +3,13 @@
 import { useState } from "react";
 import styles from "./auth.module.css";
 import GoogleAuth from "./googleAuth";
-import AppleAuth from "./appleAuth";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { useDispatch } from "react-redux";
-import { authLoginOtp } from "@/redux/slice/authSlice";
+import { authLoginOtp, authSignIn } from "@/redux/slice/authSlice";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -18,7 +17,6 @@ import { useRouter } from "next/navigation";
 
 const schema = yup.object({
   email: yup.string().email("Invalid email").required("Email is required"),
-
   password: yup
     .string()
     .min(6, "Password must be at least 6 characters")
@@ -26,7 +24,9 @@ const schema = yup.object({
 });
 
 export default function LoginForm() {
-  const [provider, setProvider] = useState<"google" | "apple" | null>(null);
+  const [provider, setProvider] = useState<"google" | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -38,7 +38,6 @@ export default function LoginForm() {
     resolver: yupResolver(schema),
   });
 
-  /* Toast validation errors */
   const onError = (errors: any) => {
     const firstError = Object.values(errors)[0] as any;
     if (firstError?.message) {
@@ -46,16 +45,43 @@ export default function LoginForm() {
     }
   };
 
-  /* Submit login → send OTP */
   const onSubmit = async (data: any) => {
-    const response: any = await dispatch(authLoginOtp(data));
+    setIsLoading(true);
+
+    const response: any = await dispatch(authSignIn(data));
+
+    setIsLoading(false);
 
     if (response?.payload?.status) {
       router.push("/auth/otp");
+      toast.success(response.payload.message || "OTP sent successfully"); 
+    
     } else {
-      toast.error(response?.payload?.message || "Login failed");
+      console.log("logged in succesfull")
     }
   };
+
+//   const onSubmit = async (data: any) => {
+//   try {
+//     setIsLoading(true);
+
+//     const result = await dispatch(authSignIn(data)).unwrap();
+
+//     setIsLoading(false);
+
+//     if (result?.status) {
+//       toast.success(result.message || "OTP sent successfully");
+
+//       router.push(`/auth/otp?email=${encodeURIComponent(data.email)}`);
+//     } else {
+//       toast.error(result?.message || "Login failed");
+//     }
+//   } catch (error: any) {
+//     setIsLoading(false);
+//     toast.error(error?.message || "Something went wrong");
+//   }
+// };
+
 
   return (
     <>
@@ -65,6 +91,7 @@ export default function LoginForm() {
         className={styles.form}
         onSubmit={handleSubmit(onSubmit, onError)}
       >
+        {/* Email */}
         <input
           className={styles.input}
           type="email"
@@ -75,6 +102,7 @@ export default function LoginForm() {
           <p className={styles.error}>{errors.email.message}</p>
         )}
 
+        {/* Password */}
         <input
           className={styles.input}
           type="password"
@@ -85,27 +113,42 @@ export default function LoginForm() {
           <p className={styles.error}>{errors.password.message}</p>
         )}
 
+        {/* Login button */}
+        <button
+          className={styles.logModalBtn}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <span className={styles.spinner}></span>
+          ) : (
+            "Login Now"
+          )}
+        </button>
+        <button className={styles.modalBtn} onClick={() => router.push("/auth/otp")}>Verify OTP</button>
+
+        {/* Google login */}
         <div className={styles.socialRow}>
-          <button
+          {/* <button
             type="button"
             className={styles.googleBtn}
             onClick={() => setProvider("google")}
           >
-            Google
-          </button>
-        </div>
+            Continue with Google
+          </button> */}
+          <button
+  type="button"
+  className={styles.googleBtn}
+  onClick={() => setProvider("google")}
+>
+  <i className="fab fa-apple" style={{ marginRight: "8px" }}></i>
+  Continue with Google
+</button>
 
-        <button className={styles.logModalBtn}>
-          Login Now
-        </button>
+        </div>
       </form>
 
       {provider === "google" && (
         <GoogleAuth onClose={() => setProvider(null)} />
-      )}
-
-      {provider === "apple" && (
-        <AppleAuth onClose={() => setProvider(null)} />
       )}
     </>
   );

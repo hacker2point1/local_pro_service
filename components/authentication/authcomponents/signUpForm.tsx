@@ -14,9 +14,9 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 
-// ✅ Yup schema
+
 const schema = yup.object({
-  name: yup.string().required("Name is required"),
+  username: yup.string().required("Name is required"),
 
   email: yup
     .string()
@@ -28,10 +28,15 @@ const schema = yup.object({
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
 
-  confirmPassword: yup
+  confirm_password: yup
     .string()
     .oneOf([yup.ref("password")], "Passwords must match")
     .required("Confirm your password"),
+
+  role: yup
+    .string()
+    .oneOf(["customer", "provider"], "Please select a role")
+    .required("Role is required"),
 });
 
 export default function SignupForm() {
@@ -47,7 +52,7 @@ export default function SignupForm() {
     resolver: yupResolver(schema),
   });
 
-  // ✅ Show toast for validation errors
+
   const onError = (errors: any) => {
     const firstError = Object.values(errors)[0] as any;
     if (firstError?.message) {
@@ -55,25 +60,31 @@ export default function SignupForm() {
     }
   };
 
-  // ✅ Submit handler
-  const onSubmit = async (data: any) => {
+const onSubmit = async (data: any) => {
+  try {
     const payload = {
-      name: data.name,
+      username: data.username,
       email: data.email,
       password: data.password,
+      confirm_password: data.confirm_password,
+      role: data.role,
     };
 
-    const response: any = await dispatch(authRegistration(payload));
+    const result = await dispatch(authRegistration(payload)).unwrap();
 
-    if (response?.payload?.status === true) {
-      toast.success(response.payload.message || "Registration successful");
+    if (result?.status) {
+      toast.success(result.message || "Registration successful");
 
-      // ✅ Redirect to OTP page
-      router.push("/auth/otp");
+      
+      // router.push("/");
     } else {
-      toast.error(response?.payload?.message || "Registration failed");
+      toast.success(result?.message || "Registration failed");
     }
-  };
+  } catch (error: any) {
+    toast.error(error?.message || "Something went wrong");
+  }
+};
+
 
   return (
     <>
@@ -88,10 +99,10 @@ export default function SignupForm() {
           className={styles.input}
           type="text"
           placeholder="Enter Your Name"
-          {...register("name")}
+          {...register("username")}
         />
-        {errors.name && (
-          <p className={styles.error}>{errors.name.message}</p>
+        {errors.username && (
+          <p className={styles.error}>{errors.username.message}</p>
         )}
 
         {/* Email */}
@@ -121,27 +132,54 @@ export default function SignupForm() {
           className={styles.input}
           type="password"
           placeholder="Confirm Your Password"
-          {...register("confirmPassword")}
+          {...register("confirm_password")}
         />
-        {errors.confirmPassword && (
+        {errors.confirm_password && (
           <p className={styles.error}>
-            {errors.confirmPassword.message}
+            {errors.confirm_password.message}
           </p>
         )}
 
+        {/* Role Dropdown */}
+        <select
+          className={styles.input}
+          defaultValue=""
+          {...register("role")}
+        >
+          <option value="" disabled>
+            Choose your role
+          </option>
+          <option value="customer">Customer</option>
+          <option value="provider">Provider</option>
+        </select>
+
+        {errors.role && (
+          <p className={styles.error}>{errors.role.message}</p>
+        )}
+
+        {/* Submit Button */}
+        <button className={styles.modalBtn}>
+          Create account
+        </button>
+
+       <button className={styles.modalBtn} onClick={() => router.push("/auth/otp")} >Verify OTP</button>
         <div className={styles.socialRow}>
+          {/* <button
+            type="button"
+            className={styles.googleBtn}
+            onClick={() => setProvider("google")}
+          >
+            Continue with Google
+          </button> */}
           <button
             type="button"
             className={styles.googleBtn}
             onClick={() => setProvider("google")}
           >
-            Google
+            <i className="fab fa-apple" style={{ marginRight: "8px" }}></i>
+            Continue with Google
           </button>
         </div>
-
-        <button className={styles.modalBtn}>
-          Create account
-        </button>
       </form>
 
       {provider === "google" && (
@@ -150,9 +188,6 @@ export default function SignupForm() {
     </>
   );
 }
-
-
-
 
 
 

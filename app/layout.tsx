@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/header/header";
-import "@fortawesome/fontawesome-free/css/all.min.css"
+
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "swiper/css";
-import Footer from "@/components/layout/footer/footer";
+
 import Providers from "@/redux/provider/providers";
-
-
+import LayoutWrapper from "@/components/layout/layoutWrapper/layoutWrapper";
+import { Toaster } from "sonner";
+// import LayoutWrapper from "@/components/layout/LayoutWrapper";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,18 +23,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${poppins.variable}`}
-      >
+      <body className={poppins.variable}>
         <Providers>
-        <Header/>
-        {children}
-        <Footer/>
+          <Toaster richColors position="top-center" duration={3000} />
+          <LayoutWrapper>{children}</LayoutWrapper>
         </Providers>
       </body>
     </html>

@@ -33,7 +33,7 @@ export const authRegistration = createAsyncThunk(
 /* ================= SIGN IN ================= */
 
 export const authSignIn = createAsyncThunk(
-  "auth/signIn",
+  "authSignIn",
   async (payload: any) => {
     const response = await axiosInstance.post(
       endpoints.auth.signIn,
@@ -43,7 +43,7 @@ export const authSignIn = createAsyncThunk(
   }
 );
 
-/* ================= LOGIN OTP ================= */
+/* ================= REGISTER OTP ================= */
 
 export const authLoginOtp = createAsyncThunk(
   "auth/loginOtp",
@@ -58,11 +58,11 @@ export const authLoginOtp = createAsyncThunk(
 
 /* ================= VERIFY OTP ================= */
 
-export const verifyOtp = createAsyncThunk(
-  "auth/verifyOtp",
-  async (payload: any) => {
+export const verifyRegisterOtp = createAsyncThunk(
+  "verifyRegisterOtp",
+  async (payload) => {
     const response = await axiosInstance.post(
-      endpoints.auth.verifyOtp,
+      endpoints.auth.registerOtp,
       payload
     );
     return response.data;
@@ -81,7 +81,7 @@ const authSlice = createSlice({
       state.email = null;
       state.userId = null;
 
-      // ✅ Remove cookie on logout
+  
       cookies.remove("authToken", { path: "/" });
 
       toast.success("Logged out successfully");
@@ -126,7 +126,7 @@ const authSlice = createSlice({
       })
 
       /* ===== VERIFY OTP (TOKEN STORAGE HERE) ===== */
-      .addCase(verifyOtp.fulfilled, (state, action) => {
+      .addCase(verifyRegisterOtp.fulfilled, (state, action) => {
         if (action.payload?.status) {
           const token = action.payload.token;
 

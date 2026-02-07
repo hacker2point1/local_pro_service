@@ -30,13 +30,14 @@
 }
 
 .title2 {
-  font-size: 42px;
-  font-weight: 700;
+  font-size: 55px;
+  font-weight: 600;
 }
 
 .title3 {
-  font-size: 16px;
+  font-size: 32px;
   opacity: 0.8;
+  font-weight : 500
 }
 
 .exploreBtn {
