@@ -1,0 +1,175 @@
+/* SECTION */
+.homeSec {
+  background: var(--offcanvsbckground-color);
+  position: relative;
+  z-index: -1;
+  padding: 114px 0 109px;
+}
+
+/* 🔥 DARK BLUE DIAGONAL (BEHIND EVERYTHING) */
+.homeSec::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 37%;
+  background: var(--figma-blue-50);
+  z-index: -2;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+  z-index: 2;
+}
+
+/* MAIN WRAPPER */
+.homeWrapper {
+  display: flex;
+  /* gap: 80px; */
+  align-items: flex-start;
+}
+
+/* LEFT COLUMN */
+.leftCol {
+  width: 55%;
+  position: relative;
+  z-index: 2;
+  padding: 0 12px;
+}
+
+/* MAIN IMAGE */
+.homeImg {
+  width: 100%;
+  height: 920px;
+  position: relative;
+}
+
+.mainImg {
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.homeImg:hover .mainImg {
+  transform: scale(1.05);
+}
+
+/* INFO BOX */
+.imgBox {
+  position: absolute;
+  bottom: 120px;
+  right: -40px;
+  background: #fff;
+  padding: 18px 35px;
+  border-radius: 8px;
+  max-width: 246px;
+  z-index: 4;
+}
+
+.iconBox {
+  width: 52.41px;
+  height: 52.41px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 92px;
+  right: 85px;
+  background: var(--secondary-color);
+}
+
+/* 🟡 YELLOW CIRCLE */
+.backCircle {
+  width: 306px;
+  height: 306px;
+  border-radius: 50%;
+  background: var(--back-ground-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 83%;
+  right: -19%;
+  z-index: -1;
+}
+
+.innerCircle {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: var(--figma-blue-50);
+}
+
+/* RIGHT COLUMN */
+.rightCol {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  padding: 12px;
+}
+
+/* TEXT */
+.homeCont h2 {
+  font-size: 55px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.homeCont h3 {
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.homeCont p {
+  font-size: 16px;
+  line-height: 27px;
+  max-width: 520px;
+  margin-bottom: 100px;
+}
+
+/* SUB IMAGE — ALWAYS AT BOTTOM */
+.homeSubImg {
+  width: 420px;
+  height: 560px;
+  margin-top: auto; /* 🔥 KEY FIX */
+  margin-left: auto;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.subImg {
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.homeSubImg:hover .subImg {
+  transform: scale(1.05);
+}
+
+
+/* added */
+.homeImg,
+.homeSubImg {
+  position: relative;
+  /* overflow: hidden; */
+}
+
+.zoomWrapper {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.mainImg,
+.subImg {
+  object-fit: cover;
+}
+

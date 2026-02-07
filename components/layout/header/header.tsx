@@ -1,0 +1,337 @@
+
+// "use client";
+
+// import Image from "next/image";
+// import styles from "../header/header.module.css";
+// import Link from "next/link";
+// import { useSession, signOut } from "next-auth/react";
+
+// export default function Header() {
+//   const { data: session } = useSession();
+//   const user = session?.user;
+
+//   return (
+//     <header className={`${styles.headerSec} luxy-el`} data-speed="0.08">
+//       <div className="container">
+//         {/* TOP NAV */}
+//         <nav className={styles.navTop}>
+//           <ul className={styles.navTopList}>
+//             <li>
+//               <a className={`${styles.navTopLink} ${styles.mapBtn}`}>
+//                 <i className="location-arrow"></i>
+//                 <span>
+//                   2nd Floor, Sector V, Salt Lake, Kolkata – 700091, West Bengal,
+//                   India
+//                 </span>
+//               </a>
+//             </li>
+
+//             <li>
+//               <a
+//                 href="mailto:localpro@gmail.com"
+//                 className={styles.navTopLink}
+//               >
+//                 <i className="fa-regular fa-envelope"></i>
+//                 <span>localpro@gmail.com</span>
+//               </a>
+//             </li>
+
+//             <li className={styles.navBorder}>
+//               <a className={styles.navTopLink}>
+//                 <i className="fa-regular fa-calendar"></i>
+//                 <span>Daily 9am-10pm</span>
+//               </a>
+//             </li>
+//           </ul>
+
+//           {/* SOCIAL LIST (THIS WAS MISSING) */}
+//           <ul className={styles.socialList}>
+//             <li className={styles.followLink}>Follow Us:</li>
+//             <li>
+//               <a href="#" className={styles.socialLink}>
+//                 <i className="fa-brands fa-facebook-f"></i>
+//               </a>
+//             </li>
+//             <li>
+//               <a href="#" className={styles.socialLink}>
+//                 <i className="fa-brands fa-linkedin-in"></i>
+//               </a>
+//             </li>
+//             <li>
+//               <a href="#" className={styles.socialLink}>
+//                 <i className="fa-brands fa-youtube"></i>
+//               </a>
+//             </li>
+//             <li>
+//               <a href="#" className={styles.socialLink}>
+//                 <i className="fa-brands fa-x-twitter"></i>
+//               </a>
+//             </li>
+//           </ul>
+//         </nav>
+//       </div>
+
+//       {/* MAIN NAV */}
+//       <nav className={styles.navbar}>
+//         <div className={`container ${styles.navInner}`}>
+//           <div className={styles.navLogo}>
+//             <Link href="/">
+//               <Image
+//                 src="/images/Group 1000004669.png"
+//                 alt="logo"
+//                 width={52}
+//                 height={52}
+//               />
+//             </Link>
+//           </div>
+
+//           <ul className={styles.navLinks}>
+//             <li>
+//               <Link
+//                 className={`${styles.navLink} ${styles.active}`}
+//                 href="/"
+//               >
+//                 Home
+//               </Link>
+//             </li>
+//             <li>
+//               <Link className={styles.navLink} href="/services">
+//                 Services
+//               </Link>
+//             </li>
+//             <li>
+//               <Link className={styles.navLink} href="/about">
+//                 About Us
+//               </Link>
+//             </li>
+//             <li>
+//               <Link className={styles.navLink} href="/blog">
+//                 Blog
+//               </Link>
+//             </li>
+//             <li>
+//               <Link className={styles.navLink} href="/contact">
+//                 Contact Us
+//               </Link>
+//             </li>
+//           </ul>
+
+//           <div className={styles.navRight}>
+//             {/* LOCATION */}
+//             <div className={styles.navLocation}>
+//               <i className="fa-solid fa-location-dot"></i>
+//               <span className={styles.locationText}>
+//                 Salt Lake, Kolkata
+//               </span>
+
+//               <select className={styles.locationSelect}>
+//                 <option>Salt Lake, Kolkata</option>
+//                 <option>Delhi</option>
+//                 <option>Mumbai</option>
+//                 <option>Bengaluru</option>
+//               </select>
+
+//               <i
+//                 className={`fa-solid fa-chevron-down ${styles.dropdownIcon}`}
+//               ></i>
+//             </div>
+
+//             {/* SEARCH */}
+//             <form className={styles.navForm}>
+//               <input
+//                 type="search"
+//                 placeholder="Search For Service"
+//                 className={styles.searchInput}
+//               />
+//               <span className={styles.searchIcon}>
+//                 <i className="fa-solid fa-magnifying-glass"></i>
+//               </span>
+//             </form>
+
+//             {/* AUTH AREA */}
+//             {!user ? (
+//               <Link href="/auth/signIn" className={styles.primaryBtn}>
+//                 Sign In
+//               </Link>
+//             ) : (
+//               <div className={styles.userBox}>
+//                 <Image
+//                   src={user.image || "/images/user.png"}
+//                   alt="user"
+//                   width={36}
+//                   height={36}
+//                   className={styles.userImg}
+//                 />
+//                 <button
+//                   className={styles.logoutBtn}
+//                   onClick={() => signOut({ callbackUrl: "/" })}
+//                 >
+//                   Logout
+//                 </button>
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </nav>
+//     </header>
+//   );
+// }
+
+
+"use client";
+
+import Image from "next/image";
+import styles from "../header/header.module.css";
+import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
+import { useState } from "react";
+
+export default function Header() {
+  const { data: session } = useSession();
+  const user = session?.user;
+
+  const [location, setLocation] = useState("Salt Lake, Kolkata");
+  const [loading, setLoading] = useState(false);
+
+  const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selected = e.target.value;
+
+    setLoading(true);
+
+    // simulate API call
+    setTimeout(() => {
+      setLocation(selected);
+      setLoading(false);
+    }, 1000); // 1 second loading
+  };
+
+  return (
+    <header className={`${styles.headerSec} luxy-el`} data-speed="0.08">
+      <div className="container">
+        {/* TOP NAV */}
+        <nav className={styles.navTop}>
+          <ul className={styles.navTopList}>
+            <li>
+              <a className={`${styles.navTopLink} ${styles.mapBtn}`}>
+                <i className="location-arrow"></i>
+                <span>
+                  2nd Floor, Sector V, Salt Lake, Kolkata – 700091, West Bengal,
+                  India
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="mailto:localpro@gmail.com"
+                className={styles.navTopLink}
+              >
+                <i className="fa-regular fa-envelope"></i>
+                <span>localpro@gmail.com</span>
+              </a>
+            </li>
+
+            <li className={styles.navBorder}>
+              <a className={styles.navTopLink}>
+                <i className="fa-regular fa-calendar"></i>
+                <span>Daily 9am-10pm</span>
+              </a>
+            </li>
+          </ul>
+
+          <ul className={styles.socialList}>
+            <li className={styles.followLink}>Follow Us:</li>
+            <li><a href="#" className={styles.socialLink}><i className="fa-brands fa-facebook-f"></i></a></li>
+            <li><a href="#" className={styles.socialLink}><i className="fa-brands fa-linkedin-in"></i></a></li>
+            <li><a href="#" className={styles.socialLink}><i className="fa-brands fa-youtube"></i></a></li>
+            <li><a href="#" className={styles.socialLink}><i className="fa-brands fa-x-twitter"></i></a></li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* MAIN NAV */}
+      <nav className={styles.navbar}>
+        <div className={`container ${styles.navInner}`}>
+          <div className={styles.navLogo}>
+            <Link href="/">
+              <Image
+                src="/images/Group 1000004669.png"
+                alt="logo"
+                width={52}
+                height={52}
+              />
+            </Link>
+          </div>
+
+          <ul className={styles.navLinks}>
+            <li><Link className={`${styles.navLink} ${styles.active}`} href="/">Home</Link></li>
+            <li><Link className={styles.navLink} href="/services">Services</Link></li>
+            <li><Link className={styles.navLink} href="/about">About Us</Link></li>
+            <li><Link className={styles.navLink} href="/blog">Blog</Link></li>
+            <li><Link className={styles.navLink} href="/contact">Contact Us</Link></li>
+          </ul>
+
+          <div className={styles.navRight}>
+            {/* LOCATION */}
+            {/* <div className={styles.navLocation}>
+              <i className="fa-solid fa-location-dot"></i>
+
+              <span className={styles.locationText}>
+                {loading ? "Loading..." : location}
+              </span>
+
+              <select
+                className={styles.locationSelect}
+                onChange={handleLocationChange}
+                disabled={loading}
+              >
+                <option>Salt Lake, Kolkata</option>
+                <option>Delhi</option>
+                <option>Mumbai</option>
+                <option>Bengaluru</option>
+              </select>
+
+              <i className={`fa-solid fa-chevron-down ${styles.dropdownIcon}`}></i>
+            </div> */}
+
+            {/* SEARCH */}
+            <form className={styles.navForm}>
+              <input
+                type="search"
+                placeholder="Search For Service"
+                className={styles.searchInput}
+              />
+              <span className={styles.searchIcon}>
+                <i className="fa-solid fa-magnifying-glass"></i>
+              </span>
+            </form>
+
+            {/* AUTH */}
+            {!user ? (
+              <Link href="/auth/signIn" className={styles.primaryBtn}>
+                Sign In
+              </Link>
+            ) : (
+              <div className={styles.userBox}>
+                <Image
+                  src={user.image || "/images/user.png"}
+                  alt="user"
+                  width={36}
+                  height={36}
+                  className={styles.userImg}
+                />
+                <button
+                  className={styles.logoutBtn}
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </nav>
+    </header>
+  );
+}
+
