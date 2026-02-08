@@ -1,3 +1,4 @@
+import PrivacyPolicy from "@/components/privacyPolicies/privacyPolicies";
 import AppSection from "@/components/section/app/app";
 import BlogSection from "@/components/section/blog/blog";
 import EquipmentSection from "@/components/section/equipments/equipments";
@@ -8,6 +9,7 @@ import ServicesSection from "@/components/section/serviceSwiper/service";
 import ServiceUpperSwiper from "@/components/section/serviceUpperSwiper/serviceUpperSwiper";
 import TeamSection from "@/components/section/team/team";
 import TestimonialsSection from "@/components/section/testimonials/testimonials";
+import TrustSlider from "@/components/section/trustSection/trustSec";
 import Image from "next/image";
 
 export default function Home() {
@@ -20,9 +22,11 @@ export default function Home() {
     <HowWeWork/>
     <EquipmentSection/>
     <TestimonialsSection/>
+    <TrustSlider/>
     <TeamSection/>
     <BlogSection/>
     <AppSection/>
+    {/* <PrivacyPolicy/> */}
     </>
   );
 }

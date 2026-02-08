@@ -181,3 +181,54 @@
   color: white;
   cursor: pointer;
 }
+
+
+/* added */
+/* Smooth hide animation */
+
+.headerSec {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.headerHidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+/* Sign in button hover animation */
+
+.primaryBtn {
+  padding: 14px 32px;
+  background: var(--hover-color);
+  border-radius: 8px;
+  color: var(--secondary-color);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.primaryBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background: var(--border-color);
+}
+/* added */
+/* smooth hide animation */
+.headerSec {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.headerHidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+/* sign in hover */
+.primaryBtn {
+  transition: all 0.3s ease;
+}
+
+.primaryBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}

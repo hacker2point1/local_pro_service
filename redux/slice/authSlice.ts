@@ -130,10 +130,10 @@ const authSlice = createSlice({
         if (action.payload?.status) {
           const token = action.payload.token;
 
-          // ✅ Save in Redux state
+          //  Save in Redux state
           state.token = token;
 
-          // ✅ Save in cookies
+          // Save in cookies
           cookies.set("authToken", token, {
             path: "/",
             maxAge: 60 * 60 * 24 * 7, // 7 days
@@ -153,110 +153,3 @@ const authSlice = createSlice({
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;
 
-
-
-
-
-
-
-
-
-
-// "use client"
-// import { extractEtag } from "next/dist/server/image-optimizer";
-// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-// import axiosInstance from "@/api/axios/axios";
-
-// import { toast } from "sonner";
-// import { endpoints } from "@/api/endpoints/endpoints";
-
-// import { useCookies } from "react-cookie";
-
-// const initialState = {
-  
-//   token:null,
-//   email:null,
-//   userId:null
-// };
-
-// /*signUp*/
-// export const authRegistration = createAsyncThunk(
-//   "authRegistration",
-//   async (payload) => {
-//     const response = await axiosInstance.post(endpoints.auth.registration, payload);
-
-//     return response.data;
-//   }
-// );
-
-// // /*SignIn*/
-// // export const authLogin = createAsyncThunk(
-// //   "authLogin",
-// //   async (payload) => {
-// //     const response = await axiosInstance.post(
-// //       endpoints.auth.registration,
-// //       payload
-// //     );
-// //     return response.data;
-// //   }
-// // );
-
-// // /*verifyOtp*/
-// // export const verifyOtp = createAsyncThunk(
-// //   "auth/verifyOtp",
-// //   async (payload) => {
-// //     const response = await axiosInstance.post(
-// //       endpoints.auth.otp,
-// //       payload
-// //     );
-// //     return response.data;
-// //   }
-// // );
-
-
-
-// const authSlice = createSlice({
-//   name: "authSlice",
-//   initialState,
-//   reducers: {
-//     logout:(state,action)=>{
-//      state.userId = null;
-//      state.email = null;
-//      state.token = null
-//     }
-//   },
-
-//   extraReducers: (builder) => {
-//     builder
-//       /*register*/
-//       .addCase(authRegistration.pending, (state, { payload }) => { })
-
-//       .addCase(authRegistration.fulfilled, (state, { payload }) => {
-//         if (payload.status === true) {
-//           localStorage.setItem("Id", payload.user.id)
-         
-//           toast.success(payload.message)
-//         }
-//       })
-
-//      .addCase(authRegistration.rejected, (state, action) => {
-//   toast.error(action.error.message || "Registration failed");
-// });
-
-
-//     //   /*login*/
-//     //   .addCase(authLogin.pending, () => { })
-//     //   .addCase(authLogin.fulfilled, () => { })
-//     //   .addCase(authLogin.rejected, () => { })
-
-//     //   /*verifyOtp*/
-//     //   .addCase(verifyOtp.pending, () => { })
-//     //   .addCase(verifyOtp.fulfilled, () => { })
-//     //   .addCase(verifyOtp.rejected, () => { });
-
-//   },
-// });
-
-// export default authSlice.reducer;
-// export const {logout} = authSlice.actions

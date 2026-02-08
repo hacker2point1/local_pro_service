@@ -1,8 +1,64 @@
 
+// "use client";
+
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Autoplay, FreeMode } from "swiper/modules";
+// import "swiper/css";
+// import "swiper/css/free-mode";
+
+// import styles from "./serviceUpperSwiper.module.css";
+
+// export default function ServiceUpperSwiper() {
+//   return (
+//     <section className={styles.servicesSliderSec}>
+//       <div className={styles.sliderContainer}>
+//         <Swiper
+//           modules={[Autoplay, FreeMode]}
+//           className={styles.servicesSwiper}
+//           slidesPerView="auto"
+//           spaceBetween={20}
+//           loop={true}
+//           freeMode={true}
+//           autoplay={{
+//             delay: 1,
+//             disableOnInteraction: false,
+//           }}
+//           speed={4000}
+//           onInit={(swiper) => {
+//             // 🔥 REAL FIX
+//             requestAnimationFrame(() => {
+//               swiper.update();
+//               swiper.autoplay.start();
+//             });
+//           }}
+//         >
+//           <SwiperSlide className={styles.servicesSlide}>Plumber</SwiperSlide>
+//           <SwiperSlide className={styles.servicesSlide}>Electrician</SwiperSlide>
+//           <SwiperSlide className={styles.servicesSlide}>Cleaner</SwiperSlide>
+//           <SwiperSlide className={styles.servicesSlide}>Painter</SwiperSlide>
+//           <SwiperSlide className={styles.servicesSlide}>Carpenter</SwiperSlide>
+//           <SwiperSlide className={styles.servicesSlide}>Mechanic</SwiperSlide>
+//           <SwiperSlide className={styles.servicesSlide}>Gardener</SwiperSlide>
+//           <SwiperSlide className={styles.servicesSlide}>Driver</SwiperSlide>
+//           <SwiperSlide className={styles.acServicesSlide}>
+//             AC Technician
+//           </SwiperSlide>
+//           <SwiperSlide className={styles.servicesSlide}>Welder</SwiperSlide>
+//           <SwiperSlide className={styles.servicesSlide}>Cook/Chef</SwiperSlide>
+//           <SwiperSlide className={styles.servicesSlide}>Beautician</SwiperSlide>
+//         </Swiper>
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
+
 import "swiper/css";
 import "swiper/css/free-mode";
 
@@ -11,47 +67,64 @@ import styles from "./serviceUpperSwiper.module.css";
 export default function ServiceUpperSwiper() {
   return (
     <section className={styles.servicesSliderSec}>
-      <div className={styles.sliderContainer}>
+      <div className="slider-container">
         <Swiper
           modules={[Autoplay, FreeMode]}
           className={styles.servicesSwiper}
-          slidesPerView="auto"
-          spaceBetween={20}
           loop={true}
           freeMode={true}
+          // freeModeMomentum={false}
+          slidesPerView="auto"
+          spaceBetween={35}
+          speed={6000}
           autoplay={{
-            delay: 1,
+            delay: 0,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
-          speed={4000}
-          onInit={(swiper) => {
-            // 🔥 REAL FIX
-            requestAnimationFrame(() => {
-              swiper.update();
-              swiper.autoplay.start();
-            });
-          }}
+          allowTouchMove={false}
         >
-          <SwiperSlide className={styles.servicesSlide}>Plumber</SwiperSlide>
-          <SwiperSlide className={styles.servicesSlide}>Electrician</SwiperSlide>
-          <SwiperSlide className={styles.servicesSlide}>Cleaner</SwiperSlide>
-          <SwiperSlide className={styles.servicesSlide}>Painter</SwiperSlide>
-          <SwiperSlide className={styles.servicesSlide}>Carpenter</SwiperSlide>
-          <SwiperSlide className={styles.servicesSlide}>Mechanic</SwiperSlide>
-          <SwiperSlide className={styles.servicesSlide}>Gardener</SwiperSlide>
-          <SwiperSlide className={styles.servicesSlide}>Driver</SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Plumber
+          </SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Electrician
+          </SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Cleaner
+          </SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Painter
+          </SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Carpenter
+          </SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Mechanic
+          </SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Gardener
+          </SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Driver
+          </SwiperSlide>
           <SwiperSlide className={styles.acServicesSlide}>
             AC Technician
           </SwiperSlide>
-          <SwiperSlide className={styles.servicesSlide}>Welder</SwiperSlide>
-          <SwiperSlide className={styles.servicesSlide}>Cook/Chef</SwiperSlide>
-          <SwiperSlide className={styles.servicesSlide}>Beautician</SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Welder
+          </SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Cook/Chef
+          </SwiperSlide>
+          <SwiperSlide className={styles.servicesSlide}>
+            Beautician
+          </SwiperSlide>
         </Swiper>
       </div>
     </section>
   );
 }
-
 
 
 
