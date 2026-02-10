@@ -268,22 +268,22 @@ export default function Header() {
           <ul className={styles.socialList}>
             <li className={styles.followLink}>Follow Us:</li>
             <li>
-              <a href="#" className={styles.socialLink}>
+              <a href="https://www.facebook.com/LocalProServices" className={styles.socialLink}>
                 <i className="fa-brands fa-facebook-f"></i>
               </a>
             </li>
             <li>
-              <a href="#" className={styles.socialLink}>
+              <a href="https://www.linkedin.com/company/localpro-services" className={styles.socialLink}>
                 <i className="fa-brands fa-linkedin-in"></i>
               </a>
             </li>
             <li>
-              <a href="#" className={styles.socialLink}>
-                <i className="fa-brands fa-youtube"></i>
+              <a href="https://www.instagram.com/loc_alpro?igsh=MTV6eHdlamM4cXNiaQ%3D%3D" className={styles.socialLink}>
+                <i className="fa-brands fa-instagram"></i>
               </a>
             </li>
             <li>
-              <a href="#" className={styles.socialLink}>
+              <a href="https://x.com/LocalProServices" className={styles.socialLink}>
                 <i className="fa-brands fa-x-twitter"></i>
               </a>
             </li>

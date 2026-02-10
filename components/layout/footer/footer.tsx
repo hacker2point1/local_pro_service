@@ -6,17 +6,18 @@ import styles from "../footer/footer.module.css";
 import {
   FaFacebookF,
   FaLinkedinIn,
-  FaYoutube,
+
   FaXTwitter,
   FaArrowRight,
   FaPhone,
   FaEnvelope,
+  FaInstagram,
 } from "react-icons/fa6";
 
 import { toast } from "sonner";
 
 export default function Footer() {
-  // ✅ Newsletter submit handler
+ 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault(); // stop reload
 
@@ -76,8 +77,8 @@ export default function Footer() {
               <a href="https://www.linkedin.com/company/localpro-services">
                 <FaLinkedinIn />
               </a>
-              <a href="https://www.youtube.com/@TheLocalProOfficial">
-                <FaYoutube />
+              <a href="https://www.instagram.com/loc_alpro?igsh=MTV6eHdlamM4cXNiaQ%3D%3D">
+                <FaInstagram />
               </a>
               <a href="https://x.com/LocalProServices">
                 <FaXTwitter />

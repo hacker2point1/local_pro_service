@@ -54,43 +54,19 @@ export default function LoginForm() {
 
     if (response?.payload?.status) {
       router.push("/auth/otp");
-      toast.success(response.payload.message || "OTP sent successfully"); 
-    
+      toast.success(response.payload.message || "OTP sent successfully");
     } else {
-      console.log("logged in succesfull")
+      console.log("logged in succesfull");
     }
   };
 
-//   const onSubmit = async (data: any) => {
-//   try {
-//     setIsLoading(true);
-
-//     const result = await dispatch(authSignIn(data)).unwrap();
-
-//     setIsLoading(false);
-
-//     if (result?.status) {
-//       toast.success(result.message || "OTP sent successfully");
-
-//       router.push(`/auth/otp?email=${encodeURIComponent(data.email)}`);
-//     } else {
-//       toast.error(result?.message || "Login failed");
-//     }
-//   } catch (error: any) {
-//     setIsLoading(false);
-//     toast.error(error?.message || "Something went wrong");
-//   }
-// };
 
 
   return (
     <>
       <h1 className={styles.title}>Login to your account</h1>
 
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(onSubmit, onError)}
-      >
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
         {/* Email */}
         <input
           className={styles.input}
@@ -98,9 +74,7 @@ export default function LoginForm() {
           placeholder="Enter Your Email"
           {...register("email")}
         />
-        {errors.email && (
-          <p className={styles.error}>{errors.email.message}</p>
-        )}
+        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
 
         {/* Password */}
         <input
@@ -114,36 +88,26 @@ export default function LoginForm() {
         )}
 
         {/* Login button */}
-        <button
-          className={styles.logModalBtn}
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <span className={styles.spinner}></span>
-          ) : (
-            "Login Now"
-          )}
+        <button className={styles.logModalBtn} disabled={isLoading}>
+          {isLoading ? <span className={styles.spinner}></span> : "Login Now"}
         </button>
-        <button className={styles.modalBtn} onClick={() => router.push("/auth/otp")}>Verify OTP</button>
+        <button
+          className={styles.modalBtn}
+          onClick={() => router.push("/auth/otp")}
+        >
+          Verify OTP
+        </button>
 
         {/* Google login */}
         <div className={styles.socialRow}>
-          {/* <button
+          <button
             type="button"
             className={styles.googleBtn}
             onClick={() => setProvider("google")}
           >
+            <i className="fab fa-google" style={{ marginRight: "8px" }}></i>
             Continue with Google
-          </button> */}
-          <button
-  type="button"
-  className={styles.googleBtn}
-  onClick={() => setProvider("google")}
->
-  <i className="fab fa-apple" style={{ marginRight: "8px" }}></i>
-  Continue with Google
-</button>
-
+          </button>
         </div>
       </form>
 
@@ -153,22 +117,6 @@ export default function LoginForm() {
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // "use client";
 // import { useState } from "react";
@@ -229,5 +177,3 @@ export default function LoginForm() {
 //     </>
 //   );
 // }
-
-

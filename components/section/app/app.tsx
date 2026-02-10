@@ -14,7 +14,7 @@ export default function AppSection() {
           <div className={styles.leftCol}>
             <div className={styles.appCont}>
               <h2 className={styles.title2}>
-                Services and order trust us!
+                Trust us for services and order
               </h2>
 
               <div className={styles.appBox}>

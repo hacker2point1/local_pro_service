@@ -176,7 +176,7 @@ const onSubmit = async (data: any) => {
             className={styles.googleBtn}
             onClick={() => setProvider("google")}
           >
-            <i className="fab fa-apple" style={{ marginRight: "8px" }}></i>
+            <i className="fab fa-google" style={{ marginRight: "8px" }}></i>
             Continue with Google
           </button>
         </div>
