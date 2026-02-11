@@ -192,7 +192,7 @@ export default function Header() {
   const [location, setLocation] = useState("Salt Lake, Kolkata");
   const [loading, setLoading] = useState(false);
 
-  // 🔥 scroll hide logic
+
   const [hidden, setHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -237,7 +237,7 @@ export default function Header() {
         {/* TOP NAV */}
         <nav className={styles.navTop}>
           <ul className={styles.navTopList}>
-            <li>
+            {/* <li>
               <a className={`${styles.navTopLink} ${styles.mapBtn}`}>
                 <i className="location-arrow"></i>
                 <span>
@@ -245,15 +245,16 @@ export default function Header() {
                   Bengal, India
                 </span>
               </a>
-            </li>
+            </li> */}
+            
 
             <li>
               <a
-                href="mailto:localpro@gmail.com"
+                href="mailto:localpro.services.kolkata@gmail.com"
                 className={styles.navTopLink}
               >
                 <i className="fa-regular fa-envelope"></i>
-                <span>localpro@gmail.com</span>
+                <span>localpro.services.kolkata@gmail.com</span>
               </a>
             </li>
 

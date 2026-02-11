@@ -57,7 +57,29 @@
   transform: scale(1.15);
 }
 
+/* .homeImg > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.7s ease;
+} */
+
 .homeImg > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.7s ease;
+}
+
+.homeSubImg > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.7s ease;
+}
+
+.homeImg :global(img),
+.homeSubImg :global(img) {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -90,12 +112,12 @@
   position: relative;
 }
 
-.homeSubImg > img {
+/* .homeSubImg > img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   transition: transform 0.7s ease;
-}
+} */
 
 .imgBox {
   position: absolute;

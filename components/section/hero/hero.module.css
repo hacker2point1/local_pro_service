@@ -94,7 +94,7 @@
 .bannerImage {
   position: relative;
   width: 50%;
-  height: 935px;              /* ✅ SAME AS ORIGINAL */
+  height: 935px;              
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -104,7 +104,8 @@
 .heroImg {
   width: 100%;
   height: 100%;
-  object-fit: cover;          /* ✅ CRITICAL */
+  object-fit: cover;  
+       
 }
 
 

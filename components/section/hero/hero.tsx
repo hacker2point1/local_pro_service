@@ -29,7 +29,7 @@ export default function Hero() {
                 Call Us Today
               </a>
 
-              <a href="#" className={styles.playBtn}>
+              <a href="https://youtu.be/33pnR4A_8KE?si=J4cHYZzgO-oc7KF3" className={styles.playBtn}>
                 <span className={styles.playIcon}>▶</span>
                 Watch Video
               </a>
@@ -44,7 +44,7 @@ export default function Hero() {
               src="/images/male-worker-wearing-work-clothes 1.png"
               alt="Worker"
               width={700}
-              height={900}
+              height={800}
               className={styles.heroImg}
               priority
             />
