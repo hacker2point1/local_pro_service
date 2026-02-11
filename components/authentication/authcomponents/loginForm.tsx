@@ -59,6 +59,19 @@ export default function LoginForm() {
       console.log("logged in succesfull");
     }
   };
+const handleLogin = async () => {
+try {
+const result = await dispatch(authSignIn(formData)).unwrap();
+
+if (result?.status) {
+  router.push("/"); 
+}
+
+
+} catch (error) {
+console.error("Login failed:", error);
+}
+};
 
 
 
@@ -88,15 +101,23 @@ export default function LoginForm() {
         )}
 
         {/* Login button */}
-        <button className={styles.logModalBtn} disabled={isLoading}>
+        {/* <button className={styles.logModalBtn} disabled={isLoading}>
           {isLoading ? <span className={styles.spinner}></span> : "Login Now"}
-        </button>
+        </button> */}
         <button
+  className={styles.logModalBtn}
+  disabled={isLoading}
+  onClick={handleLogin}
+>
+  {isLoading ? <span className={styles.spinner}></span> : "Login Now"}
+</button>
+
+        {/* <button
           className={styles.modalBtn}
           onClick={() => router.push("/auth/otp")}
         >
           Verify OTP
-        </button>
+        </button> */}
 
         {/* Google login */}
         <div className={styles.socialRow}>

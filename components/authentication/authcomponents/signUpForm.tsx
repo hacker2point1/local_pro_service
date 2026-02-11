@@ -12,182 +12,382 @@ import { useDispatch } from "react-redux";
 import { authRegistration } from "@/redux/slice/authSlice";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { endpoint, endpoints } from "@/api/endpoints/endpoints";
 
 
 
 const schema = yup.object({
-  username: yup.string().required("Name is required"),
+username: yup.string().required("Name is required"),
 
-  email: yup
-    .string()
-    .email("Invalid email")
-    .required("Email is required"),
+email: yup
+.string()
+.email("Invalid email")
+.required("Email is required"),
 
-  password: yup
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
+password: yup
+.string()
+.min(6, "Password must be at least 6 characters")
+.required("Password is required"),
 
-  confirm_password: yup
-    .string()
-    .oneOf([yup.ref("password")], "Passwords must match")
-    .required("Confirm your password"),
+confirm_password: yup
+.string()
+.oneOf([yup.ref("password")], "Passwords must match")
+.required("Confirm your password"),
 
-  role: yup
-    .string()
-    .oneOf(["customer", "provider"], "Please select a role")
-    .required("Role is required"),
+role: yup
+.string()
+.oneOf(["customer", "provider"], "Please select a role")
+.required("Role is required"),
 });
 
 export default function SignupForm() {
-  const [provider, setProvider] = useState<"google" | null>(null);
-  const dispatch = useDispatch();
-  const router = useRouter();
+const [provider, setProvider] = useState<"google" | null>(null);
+const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+const dispatch = useDispatch();
+const router = useRouter();
+
+const {
+register,
+handleSubmit,
+formState: { errors },
+} = useForm({
+resolver: yupResolver(schema),
+});
 
 
-  const onError = (errors: any) => {
-    const firstError = Object.values(errors)[0] as any;
-    if (firstError?.message) {
-      toast.error(firstError.message);
-    }
-  };
-
-const onSubmit = async (data: any) => {
-  try {
-    const payload = {
-      username: data.username,
-      email: data.email,
-      password: data.password,
-      confirm_password: data.confirm_password,
-      role: data.role,
-    };
-
-    const result = await dispatch(authRegistration(payload)).unwrap();
-
-    if (result?.status) {
-      toast.success(result.message || "Registration successful");
-
-      
-      // router.push("/");
-    } else {
-      toast.success(result?.message || "Registration failed");
-    }
-  } catch (error: any) {
-    toast.error(error?.message || "Something went wrong");
-  }
+const onError = (errors: any) => {
+const firstError = Object.values(errors)[0] as any;
+if (firstError?.message) {
+toast.error(firstError.message);
+}
 };
 
 
-  return (
-    <>
-      <h1 className={styles.title}>Create an account</h1>
+const onSubmit = async (data: any) => {
+try {
+setLoading(true);
 
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(onSubmit, onError)}
-      >
-        {/* Name */}
-        <input
-          className={styles.input}
-          type="text"
-          placeholder="Enter Your Name"
-          {...register("username")}
-        />
-        {errors.username && (
-          <p className={styles.error}>{errors.username.message}</p>
-        )}
 
-        {/* Email */}
-        <input
-          className={styles.input}
-          type="email"
-          placeholder="Enter Your Email"
-          {...register("email")}
-        />
-        {errors.email && (
-          <p className={styles.error}>{errors.email.message}</p>
-        )}
+  const payload = {
+    username: data.username,
+    email: data.email,
+    password: data.password,
+    confirm_password: data.confirm_password,
+    role: data.role,
+  };
 
-        {/* Password */}
-        <input
-          className={styles.input}
-          type="password"
-          placeholder="Enter Your Password"
-          {...register("password")}
-        />
-        {errors.password && (
-          <p className={styles.error}>{errors.password.message}</p>
-        )}
+  const result = await dispatch(authRegistration(payload)).unwrap();
 
-        {/* Confirm Password */}
-        <input
-          className={styles.input}
-          type="password"
-          placeholder="Confirm Your Password"
-          {...register("confirm_password")}
-        />
-        {errors.confirm_password && (
-          <p className={styles.error}>
-            {errors.confirm_password.message}
-          </p>
-        )}
+  setLoading(false);
 
-        {/* Role Dropdown */}
-        <select
-          className={styles.input}
-          defaultValue=""
-          {...register("role")}
-        >
-          <option value="" disabled>
-            Choose your role
-          </option>
-          <option value="customer">Customer</option>
-          <option value="provider">Provider</option>
-        </select>
+  if (result?.status) {
+    toast.success(result.message || "Registration successful");
 
-        {errors.role && (
-          <p className={styles.error}>{errors.role.message}</p>
-        )}
-
-        {/* Submit Button */}
-        <button className={styles.modalBtn}>
-          Create account
-        </button>
-
-       <button className={styles.modalBtn} onClick={() => router.push("/auth/otp")} >Verify OTP</button>
-        <div className={styles.socialRow}>
-          {/* <button
-            type="button"
-            className={styles.googleBtn}
-            onClick={() => setProvider("google")}
-          >
-            Continue with Google
-          </button> */}
-          <button
-            type="button"
-            className={styles.googleBtn}
-            onClick={() => setProvider("google")}
-          >
-            <i className="fab fa-google" style={{ marginRight: "8px" }}></i>
-            Continue with Google
-          </button>
-        </div>
-      </form>
-
-      {provider === "google" && (
-        <GoogleAuth onClose={() => setProvider(null)} />
-      )}
-    </>
-  );
+    
+    router.push(
+     "/auth/otp"
+      // `/auth/otp?email=${encodeURIComponent(data.email)}&mode=register`
+    );
+  } else {
+    toast.success(result?.message);
+  }
+} catch (error: any) {
+  setLoading(false);
+  toast.error(error?.message || "Something went wrong");
 }
+
+
+};
+
+/* ================= UI ================= */
+
+return (
+<> <h1 className={styles.title}>Create an account</h1>
+
+
+  <form
+    className={styles.form}
+    onSubmit={handleSubmit(onSubmit, onError)}
+  >
+    {/* Name */}
+    <input
+      className={styles.input}
+      type="text"
+      placeholder="Enter Your Name"
+      {...register("username")}
+    />
+    {errors.username && (
+      <p className={styles.error}>{errors.username.message}</p>
+    )}
+
+    {/* Email */}
+    <input
+      className={styles.input}
+      type="email"
+      placeholder="Enter Your Email"
+      {...register("email")}
+    />
+    {errors.email && (
+      <p className={styles.error}>{errors.email.message}</p>
+    )}
+
+    {/* Password */}
+    <input
+      className={styles.input}
+      type="password"
+      placeholder="Enter Your Password"
+      {...register("password")}
+    />
+    {errors.password && (
+      <p className={styles.error}>{errors.password.message}</p>
+    )}
+
+    {/* Confirm Password */}
+    <input
+      className={styles.input}
+      type="password"
+      placeholder="Confirm Your Password"
+      {...register("confirm_password")}
+    />
+    {errors.confirm_password && (
+      <p className={styles.error}>
+        {errors.confirm_password.message}
+      </p>
+    )}
+
+    {/* Role Dropdown */}
+    <select
+      className={styles.input}
+      defaultValue=""
+      {...register("role")}
+    >
+      <option value="" disabled>
+        Choose your role
+      </option>
+      <option value="customer">Customer</option>
+      <option value="provider">Provider</option>
+    </select>
+
+    {errors.role && (
+      <p className={styles.error}>{errors.role.message}</p>
+    )}
+
+    {/* Submit Button */}
+    <button
+      type="submit"
+      className={styles.modalBtn}
+      disabled={loading}
+    >
+      {loading ? "Creating..." : "Create account"}
+    </button>
+    <button className={styles.modalBtn} 
+    onClick={() => router.push("/auth/otp")}>Verify OTP</button>
+
+    {/* Google Auth */}
+    <div className={styles.socialRow}>
+      <button
+        type="button"
+        className={styles.googleBtn}
+        onClick={() => setProvider("google")}
+      >
+        Continue with Google
+      </button>
+    </div>
+  </form>
+
+  {provider === "google" && (
+    <GoogleAuth onClose={() => setProvider(null)} />
+  )}
+</>
+
+);
+}
+
+// "use client";
+
+// import { useState } from "react";
+// import styles from "./auth.module.css";
+// import GoogleAuth from "./googleAuth";
+
+// import { useForm } from "react-hook-form";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import * as yup from "yup";
+
+// import { useDispatch } from "react-redux";
+// import { authRegistration } from "@/redux/slice/authSlice";
+// import { toast } from "sonner";
+// import { useRouter } from "next/navigation";
+
+
+
+// const schema = yup.object({
+//   username: yup.string().required("Name is required"),
+
+//   email: yup
+//     .string()
+//     .email("Invalid email")
+//     .required("Email is required"),
+
+//   password: yup
+//     .string()
+//     .min(6, "Password must be at least 6 characters")
+//     .required("Password is required"),
+
+//   confirm_password: yup
+//     .string()
+//     .oneOf([yup.ref("password")], "Passwords must match")
+//     .required("Confirm your password"),
+
+//   role: yup
+//     .string()
+//     .oneOf(["customer", "provider"], "Please select a role")
+//     .required("Role is required"),
+// });
+
+// export default function SignupForm() {
+//   const [provider, setProvider] = useState<"google" | null>(null);
+//   const dispatch = useDispatch();
+//   const router = useRouter();
+
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm({
+//     resolver: yupResolver(schema),
+//   });
+
+
+//   const onError = (errors: any) => {
+//     const firstError = Object.values(errors)[0] as any;
+//     if (firstError?.message) {
+//       toast.error(firstError.message);
+//     }
+//   };
+
+// const onSubmit = async (data: any) => {
+//   try {
+//     const payload = {
+//       username: data.username,
+//       email: data.email,
+//       password: data.password,
+//       confirm_password: data.confirm_password,
+//       role: data.role,
+//     };
+
+//     const result = await dispatch(authRegistration(payload)).unwrap();
+
+//     if (result?.status) {
+//       toast.success(result.message || "Registration successful");
+
+//       router.push("/auth/otp")
+      
+//     } else {
+//       toast.success(result?.message || "Registration failed");
+//     }
+//   } catch (error: any) {
+//     toast.error(error?.message || "Something went wrong");
+//   }
+// };
+
+
+//   return (
+//     <>
+//       <h1 className={styles.title}>Create an account</h1>
+
+//       <form
+//         className={styles.form}
+//         onSubmit={handleSubmit(onSubmit, onError)}
+//       >
+//         {/* Name */}
+//         <input
+//           className={styles.input}
+//           type="text"
+//           placeholder="Enter Your Name"
+//           {...register("username")}
+//         />
+//         {errors.username && (
+//           <p className={styles.error}>{errors.username.message}</p>
+//         )}
+
+//         {/* Email */}
+//         <input
+//           className={styles.input}
+//           type="email"
+//           placeholder="Enter Your Email"
+//           {...register("email")}
+//         />
+//         {errors.email && (
+//           <p className={styles.error}>{errors.email.message}</p>
+//         )}
+
+//         {/* Password */}
+//         <input
+//           className={styles.input}
+//           type="password"
+//           placeholder="Enter Your Password"
+//           {...register("password")}
+//         />
+//         {errors.password && (
+//           <p className={styles.error}>{errors.password.message}</p>
+//         )}
+
+//         {/* Confirm Password */}
+//         <input
+//           className={styles.input}
+//           type="password"
+//           placeholder="Confirm Your Password"
+//           {...register("confirm_password")}
+//         />
+//         {errors.confirm_password && (
+//           <p className={styles.error}>
+//             {errors.confirm_password.message}
+//           </p>
+//         )}
+
+//         {/* Role Dropdown */}
+//         <select
+//           className={styles.input}
+//           defaultValue=""
+//           {...register("role")}
+//         >
+//           <option value="" disabled>
+//             Choose your role
+//           </option>
+//           <option value="customer">Customer</option>
+//           <option value="provider">Provider</option>
+//         </select>
+
+//         {errors.role && (
+//           <p className={styles.error}>{errors.role.message}</p>
+//         )}
+
+//         {/* Submit Button */}
+//         <button className={styles.modalBtn}>
+//           Create account
+//         </button>
+
+//        <button className={styles.modalBtn} onClick={() => router.push("/auth/otp")} >Verify OTP</button>
+//         <div className={styles.socialRow}>
+        
+//           <button
+//             type="button"
+//             className={styles.googleBtn}
+//             onClick={() => setProvider("google")}
+//           >
+//             <i className="fab fa-google" style={{ marginRight: "8px" }}></i>
+//             Continue with Google
+//           </button>
+//         </div>
+//       </form>
+
+//       {provider === "google" && (
+//         <GoogleAuth onClose={() => setProvider(null)} />
+//       )}
+//     </>
+//   );
+// }
 
 
 

@@ -12,43 +12,49 @@ const teamData = [
   {
     title: "Cleaner",
     desc: "Reliable cleaning services for homes, offices, and commercial spaces",
-    img: "/images/team-img.png",
+    img: "/images/team-img2.png",
     icon: "/images/pump-img.png",
   },
   {
     title: "Electrician",
     desc: "Licensed electricians for wiring, repairs, and electrical installations",
-    img: "/images/team-img2.png",
+    // img: "/images/team-img2.png",
+     img: "/images/team-img3.png",
     icon: "/images/team-icon2.png",
   },
   {
     title: "Painter",
     desc: "Expert painters for interior and exterior painting projects",
-    img: "/images/team-img3.png",
+    // img: "/images/team-img3.png",
+     img: "/images/team-img4.png",
     icon: "/images/team-icon3.png",
   },
   {
     title: "Mechanic",
     desc: "Specialized mechanical services for mission-critical equipment and repairs",
-    img: "/images/team-img4.png",
+    // img: "/images/team-img4.png",
+     img: "/images/team-img5.png",
     icon: "/images/team-icon-img4 (2).png",
   },
   {
     title: "Gardener",
     desc: "Lawn care, landscaping, and garden maintenance services",
-    img: "/images/team-img5.png",
+    // img: "/images/team-img5.png",
+    img: "/images/team-img6.png",
     icon: "/images/team-icon-img5.png",
   },
   {
     title: "AC Technician",
     desc: "Expert air conditioning system installation and maintenance",
-    img: "/images/team-img6.png",
+    // img: "/images/team-img6.png",
+    img: "/images/team-img7.png",
     icon: "/images/team-icon-img7.png",
   },
   {
     title: "Plumber",
     desc: "Professional plumbing services for repairs and installations",
-    img: "/images/team-img7.png",
+    img: "/images/team-img.png",
+    // img: "/images/team-img.png",
     icon: "/images/pump-img.png",
   },
 ];
@@ -61,7 +67,7 @@ export default function TeamSection() {
         <div className={styles.headerRow}>
           <div>
             <h2 className={styles.title2}>Meet Our Service team</h2>
-            <h3 className={styles.title3}>Latest Review</h3>
+            <h3 className={styles.title3}>Our Skilled Team</h3>
           </div>
 
           <a href="/index8" className={styles.exploreBtn}>

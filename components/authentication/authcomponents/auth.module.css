@@ -141,7 +141,7 @@
 
 .modalBtn {
   padding: 14.5px 46px;
-  background: var(--hover-color);
+  background: #1570EF;
   border-radius: 20px;
   color: var(--secondary-color);
   border: none;
@@ -151,14 +151,14 @@
 .logBtn {
   padding: 14.5px 46px;
   border-radius: 20px;
-  background: var(--hover-color);
+  background: #1570EF;
   color: var(--secondary-color);
   border: none;
 }
 
 .logModalBtn {
   padding: 14.5px 68px;
-  background: var(--hover-color);
+  background: #1570EF;
   color: var(--secondary-color);
   border-radius: 20px;
   border: none;

@@ -352,8 +352,8 @@ export default function Header() {
 
             {/* AUTH */}
             {!user ? (
-              <Link href="/auth/signIn" className={styles.primaryBtn}>
-                Sign In
+              <Link href="/auth/signUp" className={styles.primaryBtn}>
+                Sign Up
               </Link>
             ) : (
               <div className={styles.userBox}>
